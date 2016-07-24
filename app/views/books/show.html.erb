@@ -1,32 +1,44 @@
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<div class="panel panel-default">
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div>
+          <%= image_tag @book.cover.url(:medium), {width: "100%"} %>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <h1 class="text-primary"><%= @book.title %></h1>
+        <p><%= @book.description %></p>
+        <hr>
+        <table class="table-responsive">
+          <tr>
+            <td><strong>Published:</strong></td>
+            <td><%= @book.year_published %>.</td>
+          </tr>
+          <tr>
+            <td><strong>No. of pages:</strong></td>
+            <td><%= @book.pages %> pages</td>
+          </tr>
+          <tr>
+            <td><strong>ISBN:</strong></td>
+            <td><%= @book.isbn %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Pages:</strong>
-  <%= @book.pages %>
-</p>
+  <div class="panel-footer">
+    <div class="pull-left">
+      <%= link_to 'Back', books_path, class: 'btn btn-default'  %>
+    </div>
+    <div class="pull-right">
+      <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-warning' %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
 
-<p>
-  <strong>Year published:</strong>
-  <%= @book.year_published %>
-</p>
 
-<p>
-  <strong>Isbn:</strong>
-  <%= @book.isbn %>
-</p>
 
-<p>
-  <strong>Cover:</strong>
-  <%= image_tag @book.cover.url(:medium) %>
-</p>
-
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
