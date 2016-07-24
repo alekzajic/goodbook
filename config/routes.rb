@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   resources :books do
     resources :reviews, except: [:show, :index, :update, :destroy]
+
+    collection do
+      get 'search'
+    end
   end
 
   resources :users

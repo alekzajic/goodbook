@@ -20,6 +20,7 @@ gem 'devise', '~> 4.2'
 gem 'devise-bootstrap-views'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem 'paperclip', '~> 5.0'
+gem 'searchkick', '~> 1.3', '>= 1.3.1'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

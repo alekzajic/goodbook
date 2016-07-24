@@ -72,6 +72,14 @@ class BooksController < ApplicationController
     end
   end
 
+  def search
+    if params[:search].present?
+      @books = Book.search(params[:search])
+    else
+      @books = Book.all
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
