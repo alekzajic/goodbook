@@ -1,10 +1,9 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Books</h1>
 
 <table>
   <thead>
     <tr>
+      <th>Cover</th>
       <th>Title</th>
       <th>Description</th>
       <th>Pages</th>
@@ -17,6 +16,7 @@
   <tbody>
     <% @books.each do |book| %>
       <tr>
+        <td><%= image_tag book.cover.url(:thumb) %></td>
         <td><%= book.title %></td>
         <td><%= book.description %></td>
         <td><%= book.pages %></td>
