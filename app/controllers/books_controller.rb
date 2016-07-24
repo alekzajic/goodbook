@@ -11,6 +11,16 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @reviews = Review.where(book_id: @book.id).order('created_at DESC')
+
+    @avg_rating = 0
+    @reviews_count = 0
+    unless @reviews.blank?
+      @avg_rating = @reviews.average(:rating).round(2)
+      @reviews_count = @reviews.count
+    end
+
+
   end
 
   # GET /books/new

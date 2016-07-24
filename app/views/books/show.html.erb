@@ -1,5 +1,26 @@
-<div class="panel panel-default">
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $('.star-rating').raty({
+    path: '/assets',
+    readOnly: 'true',
+    score: function(){
+      return $(this).attr('data-score');
+    }
+  });
+})
+</script>
 
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="pull-left">
+      <%= link_to 'Back', books_path, class: 'btn btn-default btn-xs' %>
+    </div>
+    <div class="pull-right">
+      <%= link_to 'Edit Book', edit_book_path(@book), class: 'btn btn-warning btn-xs' %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-12">
@@ -9,7 +30,14 @@
       </div>
       <div class="col-md-8 col-sm-6 col-xs-12">
         <h1 class="text-primary"><%= @book.title %></h1>
-        <p><%= @book.description %></p>
+        <% unless @reviews.blank? %>
+        <div style="margin: 0 0 20px">
+          <span class="star-rating" data-score="<%= @avg_rating %>"></span>
+          <span style="margin-left: 10px"><%= @avg_rating %></span>
+          <span style="margin-left: 10px"><%= @reviews_count %> reviews</span>
+        </div>
+        <% end %>
+        <div><%= @book.description %></div>
         <hr>
         <table class="table-responsive">
           <tr>
@@ -26,19 +54,57 @@
           </tr>
         </table>
       </div>
+
     </div>
   </div>
 
-  <div class="panel-footer">
-    <div class="pull-left">
-      <%= link_to 'Back', books_path, class: 'btn btn-default'  %>
-    </div>
-    <div class="pull-right">
-      <%= link_to 'Edit', edit_book_path(@book), class: 'btn btn-warning' %>
-    </div>
-    <div class="clearfix"></div>
+
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    Reviews |
+    <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-xs btn-info' %>
+  </div>
+  <div class="panel-body">
+
+    <% if @book.reviews.blank? %>
+        <p>No reviews just jet.</p>
+        <p>Be the first to review this book.</p>
+        <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-link' %>
+    <% else %>
+        <% @reviews.each do |review| %>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="thumbnail pull-left" style="margin-right: 10px;">
+                  <!-- TODO: Change picture -->
+                  <%= image_tag 'avatar.png', width: "64", class: "img-responsive user-photo" %>
+                </div><!-- /thumbnail -->
+
+                <div>
+                  <strong><%= review.user.email %></strong> |
+                  <div class="pull-right">
+                    <small class="text-muted">5 days ago</small>
+                    <%= link_to "Edit", edit_book_review_path(review), class: "btn btn-xs btn-info" %>
+                  </div>
+
+                </div>
+
+                <div class="star-rating" data-score="<%= review.rating %>"></div>
+                <div class="clearfix visible-xs-block"></div>
+                <div><%= review.content %></div>
+
+              </div><!-- /col-sm-12 -->
+            </div>
+            <div class="clearfix"></div>
+            <hr style="margin: 10px 0 "/>
+        <% end %>
+    <% end %>
+
+
   </div>
 </div>
+
 
 
 
