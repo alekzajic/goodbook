@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -14,8 +14,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="top-nav">
       <ul class="nav navbar-nav">
-        <li class="active"><%= link_to "News feed", root_path %></li>
-        <li class="dropdown">
+        <li class="<%= current_class?(root_path) %>"><%= link_to "News feed", root_path %></li>
+        <li class="dropdown <%= current_class?(books_path) %>">
           <%= link_to books_path,
                       { class: "dropdown-toggle",
                         data: {toggle: "dropdown"},
@@ -38,15 +38,24 @@
       <!-- SEARCH-->
       <%= form_tag search_books_path, method: :get, class: "navbar-form navbar-left", role: "search" do %>
         <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control" %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for..." %>
+            <span class="input-group-btn">
+              <%= button_tag name: nil, class: "btn btn-primary", type: "submit" do %>
+                <span class="glyphicon glyphicon-search"></span>
+              <% end %>
+            </span>
+
+          </div>
+
         </div>
-        <%= submit_tag "Search",name: nil, class: "btn btn-default" %>
+
       <% end %>
 
       <!-- USER MENU -->
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-        <li class="dropdown">
+        <li class="dropdown <%= current_class?(current_user) %>">
           <%= link_to current_user, {
                       class: 'dropdown-toggle',
                       data: { toggle: 'dropdown' },
@@ -59,7 +68,7 @@
             <%= current_user.email %> <span class="caret"></span>
           <% end %>
           <ul class="dropdown-menu">
-            <li><%= link_to "Profile", current_user %></li>
+            <li class="<%= current_class?(current_user) %>"><%= link_to "Profile", current_user %></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
           </ul>

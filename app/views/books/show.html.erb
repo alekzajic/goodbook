@@ -17,7 +17,9 @@ $(function () {
       <%= link_to 'Back', books_path, class: 'btn btn-default btn-xs' %>
     </div>
     <div class="pull-right">
-      <%= link_to 'Edit Book', edit_book_path(@book), class: 'btn btn-warning btn-xs' %>
+      <%= link_to edit_book_path(@book), class: 'btn btn-warning btn-xs' do %>
+        <span class="glyphicon glyphicon-pencil"></span> Edit Book
+      <% end %>
     </div>
     <div class="clearfix"></div>
   </div>
@@ -54,10 +56,8 @@ $(function () {
           </tr>
         </table>
       </div>
-
     </div>
   </div>
-
 
 </div>
 
@@ -83,9 +83,16 @@ $(function () {
 
                 <div>
                   <strong><%= review.user.email %></strong> |
+                  <% if user_signed_in? && (current_user.id == review.user.id) %>
+                    <%= link_to "/books/#{@book.id}/reviews/#{review.id}/edit", class: "btn btn-xs btn-warning" do %>
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    <% end %>
+                      <%= link_to "/books/#{@book.id}/reviews/#{review.id}", method: :delete, class: "btn btn-xs btn-danger" do %>
+                          <span class="glyphicon glyphicon-trash"></span>
+                      <% end %>
+                  <% end %>
                   <div class="pull-right">
-                    <small class="text-muted">5 days ago</small>
-                    <%= link_to "Edit", edit_book_review_path(review), class: "btn btn-xs btn-info" %>
+                    <span class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</span>
                   </div>
 
                 </div>

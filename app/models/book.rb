@@ -4,7 +4,7 @@ class Book < ApplicationRecord
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\Z/
 
   # One-to-many relationship with Reviews
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
 
   # Elastic search for Books
   searchkick

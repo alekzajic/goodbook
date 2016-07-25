@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :books do
-    resources :reviews, except: [:show, :index, :update, :destroy]
+    resources :reviews, except: [:show, :index]
 
     collection do
       get 'search'
