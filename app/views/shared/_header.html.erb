@@ -53,7 +53,7 @@
       <% end %>
 
       <!-- USER MENU -->
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right user-menu">
         <% if user_signed_in? %>
         <li class="dropdown <%= current_class?(current_user) %>">
           <%= link_to current_user, {
@@ -65,7 +65,14 @@
                           expanded: "false"
                       }
           } do %>
-            <%= current_user.email %> <span class="caret"></span>
+
+            <% unless current_user.name.blank? %>
+                  <span><%= current_user.name %></span>
+            <% else %>
+                  <span><%= current_user.email %></span>
+            <% end %>
+            <%= image_tag current_user.avatar.url(:thumb), class: "img-rounded", style: "margin-left:10px; width: 30px; height: 30px;" %>
+            <span class="caret"></span>
           <% end %>
           <ul class="dropdown-menu">
             <li class="<%= current_class?(current_user) %>"><%= link_to "Profile", current_user %></li>

@@ -1,0 +1,62 @@
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- thumbnail -->
+    <div class="thumbnail pull-left" style="margin-right: 10px;">
+
+      <!-- Show user linked image if coming from book view -->
+      <% if controller.controller_name == 'books' %>
+          <%= link_to "/users/#{review.user_id}" do %>
+              <%= image_tag review.user.avatar.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+          <% end %>
+      <% end %>
+
+      <!-- Show book linked image if coming form user view -->
+      <% if controller.controller_name == 'users' %>
+          <%= link_to book_path(review.book_id) do %>
+            <%= image_tag review.book.cover.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+          <% end %>
+      <% end %>
+
+    </div><!-- /thumbnail -->
+
+    <div>
+      <!-- Show user name if coming from book view -->
+      <% if controller.controller_name == 'books' %>
+        <%= link_to "/users/#{review.user_id}" do %>
+          <%= review.user.name.blank? ? review.user.email : review.user.name %>
+        <% end %>
+      <% end %>
+
+      <!-- Show book linked image if coming form user view -->
+      <% if controller.controller_name == 'users' %>
+          <%= link_to book_path(review.book_id) do %>
+              <%= review.book.title %>
+          <% end %>
+      <% end %>
+      
+      <strong></strong>
+      <% if user_signed_in? && (current_user.id == review.user.id) %> |
+          <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit", class: "btn btn-xs btn-warning" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+          <%= link_to "/books/#{review.book.id}/reviews/#{review.id}", method: :delete, class: "btn btn-xs btn-danger" do %>
+              <span class="glyphicon glyphicon-trash"></span>
+          <% end %>
+      <% end %>
+      <div class="pull-right">
+        <span class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</span>
+      </div>
+
+    </div>
+
+    <div class="star-rating" data-score="<%= review.rating %>"></div>
+    <div class="clearfix visible-xs-block"></div>
+    <div><%= review.content %></div>
+
+  </div><!-- /col-sm-12 -->
+</div>
+<div class="clearfix"></div>
+<hr style="margin: 10px 0 "/>
+

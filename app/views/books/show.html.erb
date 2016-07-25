@@ -16,11 +16,13 @@ $(function () {
     <div class="pull-left">
       <%= link_to 'Back', books_path, class: 'btn btn-default btn-xs' %>
     </div>
+    <% if user_signed_in? %>
     <div class="pull-right">
       <%= link_to edit_book_path(@book), class: 'btn btn-warning btn-xs' do %>
         <span class="glyphicon glyphicon-pencil"></span> Edit Book
       <% end %>
     </div>
+    <% end %>
     <div class="clearfix"></div>
   </div>
   <div class="panel-body">
@@ -63,8 +65,10 @@ $(function () {
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    Reviews |
-    <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-xs btn-info' %>
+    Reviews
+    <% if user_signed_in? %> |
+      <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-xs btn-info' %>
+    <% end %>
   </div>
   <div class="panel-body">
 
@@ -74,37 +78,7 @@ $(function () {
         <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-link' %>
     <% else %>
         <% @reviews.each do |review| %>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="thumbnail pull-left" style="margin-right: 10px;">
-                  <!-- TODO: Change picture -->
-                  <%= image_tag 'avatar.png', width: "64", class: "img-responsive user-photo" %>
-                </div><!-- /thumbnail -->
-
-                <div>
-                  <strong><%= review.user.email %></strong> |
-                  <% if user_signed_in? && (current_user.id == review.user.id) %>
-                    <%= link_to "/books/#{@book.id}/reviews/#{review.id}/edit", class: "btn btn-xs btn-warning" do %>
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    <% end %>
-                      <%= link_to "/books/#{@book.id}/reviews/#{review.id}", method: :delete, class: "btn btn-xs btn-danger" do %>
-                          <span class="glyphicon glyphicon-trash"></span>
-                      <% end %>
-                  <% end %>
-                  <div class="pull-right">
-                    <span class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</span>
-                  </div>
-
-                </div>
-
-                <div class="star-rating" data-score="<%= review.rating %>"></div>
-                <div class="clearfix visible-xs-block"></div>
-                <div><%= review.content %></div>
-
-              </div><!-- /col-sm-12 -->
-            </div>
-            <div class="clearfix"></div>
-            <hr style="margin: 10px 0 "/>
+            <%= render partial: 'reviews/review', locals: {review: review} %>
         <% end %>
     <% end %>
 

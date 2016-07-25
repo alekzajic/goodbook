@@ -1,0 +1,46 @@
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $('.star-rating').raty({
+      path: '/assets',
+      readOnly: 'true',
+      score: function(){
+        return $(this).attr('data-score');
+      }
+    });
+  })
+</script>
+
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+
+<%= link_to "#{@user.email}", @user.email, class: "btn-link" %><br>
+
+<%= @user.name %> <br>
+
+<%= @user.city %> <br>
+
+<%= @user.birthday %><br>
+
+<%= @user.about %><br>
+
+<%= image_tag @user.avatar.url(:medium) %><br>
+
+<div>
+  <% unless @reviews.blank? %>
+      <div style="margin:20px">
+        <span class="star-rating" data-score="<%= @avg_rating %>"></span>
+        <span style="margin:0 10px">Avg rating: <%= @avg_rating %></span> |
+        <span style="margin:0 10px"><%= pluralize( @reviews_count , 'review')%></span>
+      </div>
+  <% end %>
+</div>
+
+<div>
+  <% unless @reviews.blank? %>
+      <% @reviews.each do |review| %>
+          <%= render partial: 'reviews/review', locals: {review: review} %>
+      <% end %>
+  <% end %>
+</div>
+
+

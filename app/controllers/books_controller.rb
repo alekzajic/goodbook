@@ -19,8 +19,7 @@ class BooksController < ApplicationController
       @avg_rating = @reviews.average(:rating).round(2)
       @reviews_count = @reviews.count
     end
-
-
+    
   end
 
   # GET /books/new

@@ -5,4 +5,20 @@ module ApplicationHelper
     ''
   end
 
+  def request_controller
+    params[:controller]
+  end
+
+  def request_action
+    params[:action]
+  end
+
+  def request_model
+    @request_model
+  end
+
+  def request_model=(value)
+    @request_model = value
+  end
+
 end
