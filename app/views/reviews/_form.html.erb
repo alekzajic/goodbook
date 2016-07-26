@@ -12,7 +12,11 @@
   <% end %>
 
   <div class="field">
-    <div class="star-rating"></div>
+    <% unless @review.rating.blank? %>
+      <div class="star-rating" data-score="<%= @review.rating %>"></div>
+    <% else %>
+      <div class="star-rating"></div>
+    <% end %>
   </div>
 
   <div class="field">
@@ -29,7 +33,10 @@
   $(function () {
     $('.star-rating').raty({
       path: '/assets/',
-      scoreName: 'review[rating]'
+      scoreName: 'review[rating]',
+      score: function(){
+        return $(this).attr('data-score');
+      }
     });
   })
 </script>
