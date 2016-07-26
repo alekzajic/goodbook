@@ -7,15 +7,19 @@
 
       <!-- Show user linked image if coming from book view -->
       <% if controller.controller_name == 'books' %>
-          <%= link_to "/users/#{review.user_id}" do %>
-              <%= image_tag review.user.avatar.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+          <% if defined?(review.user) && !review.user.blank? %>
+            <%= link_to "/users/#{review.user_id}" do %>
+                <%= image_tag review.user.avatar.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+            <% end %>
           <% end %>
       <% end %>
 
       <!-- Show book linked image if coming form user view -->
       <% if controller.controller_name == 'users' %>
-          <%= link_to book_path(review.book_id) do %>
-            <%= image_tag review.book.cover.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+          <% if defined?(review.book) && !review.book.blank? %>
+            <%= link_to book_path(review.book_id) do %>
+              <%= image_tag review.book.cover.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+            <% end %>
           <% end %>
       <% end %>
 
@@ -24,20 +28,23 @@
     <div>
       <!-- Show user name if coming from book view -->
       <% if controller.controller_name == 'books' %>
-        <%= link_to "/users/#{review.user_id}" do %>
-          <%= review.user.name.blank? ? review.user.email : review.user.name %>
+        <% if defined?(review.user) && !review.user.blank? %>
+          <%= link_to "/users/#{review.user_id}" do %>
+            <%= review.user.name.blank? ? review.user.email : review.user.name %>
+          <% end %>
         <% end %>
       <% end %>
 
       <!-- Show book linked image if coming form user view -->
       <% if controller.controller_name == 'users' %>
+        <% if defined?(review.book) && !review.book.blank? %>
           <%= link_to book_path(review.book_id) do %>
               <%= review.book.title %>
           <% end %>
+        <% end %>
       <% end %>
-      
-      <strong></strong>
-      <% if user_signed_in? && (current_user.id == review.user.id) %> |
+
+      <% if user_signed_in? && (current_user.id == review.user.id) && !review.book.blank? %> |
           <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit", class: "btn btn-xs btn-warning" do %>
               <span class="glyphicon glyphicon-pencil"></span>
           <% end %>
