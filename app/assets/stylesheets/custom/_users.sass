@@ -1,0 +1,49 @@
+.profile-sidebar-item
+  &.profile-avatar
+    padding: 20px
+    position: relative
+    text-align: center
+    display: block
+    margin: 0 auto
+    img
+      width: 100%
+      max-width: 200px
+
+  &:not(:first-child)
+    margin: 10px 0
+
+.profile-info
+  .user-name, .user-city, .user-birthday, .user-actions
+    margin-bottom: 10px
+
+  .user-city, .user-birthday
+    color: lighten($text-color,30%)
+    font-size: .75em
+    font-weight: 700
+
+.profile-numbers-count
+  display: flex
+  flex-direction: row
+  > li
+    flex: 1 1 50%
+    text-align: center
+    .text-bold
+      font-size: 0.75em
+
+  .user-avg-rating, .user-sum-reviews
+    font-size: 2em
+
+.profile-bio, .profile-links
+  padding: 20px
+  font-size: 0.85em
+  line-height: 18px
+
+
+.user
+  display: flex
+  flex-direction: row
+  .user-details-col
+    min-width: 300px
+    flex: 1 1 33.33%
+  .user-references-col
+    flex: 1 1 66.66%

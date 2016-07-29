@@ -1,0 +1,338 @@
+
+// ==========================================================================
+// Custom Styles - Base
+// ==========================================================================
+//
+a:hover
+  text-decoration: none
+
+ul
+  list-style: none
+  margin: 0
+  padding: 0
+
+body
+  min-height: 100vh
+  &.app
+    color: $text-color
+    background: $app-bg
+
+    font-size: $font-family-base-app
+    line-height: $line-height-base-app
+    font-family: $font-family-base-app
+    font-weight: $font-weight-base-app
+
+
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+  &.devise
+    background-color: $app-bg
+    //background-image: url("school.png")
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+.wrapper
+  display: flex
+  flex-wrap: wrap
+  flex-direction: column
+  flex: 1
+
+  min-height: 100vh
+  height: 100%
+  width: 100%
+  overflow: hidden
+
+.devise-wrapper
+  display: flex
+
+  height: 100%
+  width: 100%
+  align-content: center
+  justify-content: center
+
+
+
+// Sidebar Left
+// ==========================================================================
+.aside-1
+  min-width: 200px
+  width: 100%
+  display: flex
+  flex-direction: column
+  flex: 1
+
+  background: $sidebar-bg
+
+  .logo
+    flex-basis: 70px
+    background: $logo-bg
+    display: flex
+
+    a
+      line-height: 70px
+      flex-grow: 1
+      text-align: center
+      color: #FFF
+
+  .main-nav
+    display: flex
+    flex-direction: column
+    flex-grow: 1
+
+    li
+      flex-basis: 45px
+
+      &.active a
+        background: $sidebar-item-hover-bg
+
+        &::before
+          content: ""
+          background: $secondary
+          width: 3px
+          height: 45px
+          position: absolute
+          left: 0
+
+      a
+        display: block
+        line-height: 45px
+        padding-left: 65px
+        font-size: 14px
+        color: $sidebar-text
+        position: relative
+
+        &:hover::before
+          content: ""
+          background: $secondary
+          width: 3px
+          height: 45px
+          position: absolute
+          left: 0
+
+        &:hover
+          background: $sidebar-item-hover-bg
+
+        .fa
+          position: absolute
+          left: 30px
+          top: 15px
+          font-size: 18px
+          color: $sidebar-text
+
+  .user-nav
+    display: flex
+    flex-direction: column
+    flex: 0 0 158px
+
+    li
+      flex-basis: 45px
+
+      &.user-details
+        text-align: center
+        a
+          padding-left: 0
+          padding-top: 20px
+          text-decoration: none
+          &:hover::before
+            content: ""
+            background: transparent
+
+            width: 0
+            height: 113px
+            position: absolute
+            left: 0
+
+      a
+        display: block
+        line-height: 45px
+        padding-left: 65px
+        font-size: 14px
+        color: $sidebar-text
+        position: relative
+
+        &:hover::before
+          content: ""
+          background: $secondary
+          width: 3px
+          height: 45px
+          position: absolute
+          left: 0
+
+
+        &:hover
+          background: $sidebar-item-hover-bg
+
+        .fa
+          position: absolute
+          left: 30px
+          top: 15px
+          font-size: 18px
+          color: $sidebar-text
+
+  .books-menu
+    position: relative
+    margin: 0
+    padding: 0
+    width: 100%
+
+// Main
+// ==========================================================================
+.main
+  flex: 1 1 600px
+  display: flex
+  flex-direction: column
+
+  background: $app-bg
+
+
+.positioner
+  /*max-width: 700px;*/
+  background: $header-bg
+  color: $header-text
+  margin: 0 auto
+
+
+// Main header
+// ==========================================================================
+.main-header
+  width: 100%
+  display: flex
+  flex: 0 0 auto
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+
+  .block-search
+    flex: 1 1 50%
+    height: 70px
+
+    form
+      position: relative
+
+      input
+        width: 100%
+        height: 70px
+        font-size: 16px
+        //padding: 0 45px
+        color: $sidebar-text
+        border: none
+
+        &:focus
+          outline: none
+
+      .input-group-btn
+        button
+          height: 70px
+          width: 70px
+          background: transparent
+          border: 0
+          color: $text-color
+          border-radius: 0
+          transition: 0.3s background
+          &:hover
+            background: $secondary
+            outline: none
+          &:active
+            outline: none
+
+
+// Main content
+// ==========================================================================
+.main-content.container-fluid
+  display: flex
+  flex-direction: row
+  flex: 1
+  width: 100%
+
+  .main-content-wrapper
+    flex: 1
+    flex-direction: column
+
+    .main-left-col
+      flex: 2 2 50%
+      padding: 10px
+
+
+    .main-right-col
+      flex: 1 1 50%
+      padding: 10px
+
+
+
+  .breadcrumb
+    padding: 10px
+    font-size: 0.95rem
+    line-height: normal
+    margin-bottom: 0.5rem
+
+    background: darken($app-bg,10%)
+    border-radius: 0
+
+    li
+      a
+        color: $text-color
+      &.active
+        font-weight: 700
+        color: $text-color
+
+
+// SM screens
+// ==========================================================================
+@media (min-width: 48em)
+
+.wrapper
+  flex-wrap: wrap
+  flex-direction: row
+  flex: 1
+
+  min-height: 100vh
+  height: 100%
+  width: 100%
+
+
+.aside-1
+  min-width: 200px
+  width: 100%
+  flex-direction: column
+  flex: 0 0 200px
+
+.main
+  flex: 1 1 400px
+  flex-direction: column
+
+
+.main-header
+  width: 100%
+  flex: 0 0 auto
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+
+
+// MD screens
+// ==========================================================================
+@media (min-width: 62em)
+.main-content.container-fluid
+  flex-direction: row
+  flex: 1
+
+  width: 100%
+
+  .main-content-wrapper
+    flex: 1
+    flex-direction: row
+
+    .main-left-col
+      flex: 2 2 50%
+      padding: 10px
+
+    .main-right-col
+      flex: 1 1 50%
+      padding: 10px
+
+

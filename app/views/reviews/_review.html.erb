@@ -1,69 +1,82 @@
-
-
-<div class="row">
-  <div class="col-sm-12">
-    <!-- thumbnail -->
-    <div class="thumbnail pull-left" style="margin-right: 10px;">
-
+<!-- Review -->
+<li class="review list-group-item">
+  <div class="media">
+    <div class="review-image media-left">
       <!-- Show user linked image if coming from book view -->
       <% if controller.controller_name == 'books' %>
           <% if defined?(review.user) && !review.user.blank? %>
-            <%= link_to "/users/#{review.user_id}" do %>
-                <%= image_tag review.user.avatar.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
-            <% end %>
+              <%= link_to "/users/#{review.user_id}" do %>
+                  <%= image_tag review.user.avatar.url(:thumb), class: "img-circle", width: "40" %>
+              <% end %>
           <% end %>
       <% end %>
 
       <!-- Show book linked image if coming form user view -->
       <% if controller.controller_name == 'users' %>
           <% if defined?(review.book) && !review.book.blank? %>
-            <%= link_to book_path(review.book_id) do %>
-              <%= image_tag review.book.cover.url(:thumb), class: "img-rounded img-responsive user-photo", width: "64" %>
+              <%= link_to book_path(review.book_id) do %>
+                  <%= image_tag review.book.cover.url(:thumb), class: "img-rounded", width: "64" %>
+              <% end %>
+          <% end %>
+      <% end %>
+    </div>
+    <div class="media-body">
+      <div class="review-body">
+        <div class="name">
+          <!-- Show user name if coming from book view -->
+          <% if controller.controller_name == 'books' %>
+              <% if defined?(review.user) && !review.user.blank? %>
+                  <%= link_to "/users/#{review.user_id}" do %>
+                      <%= review.user.name.blank? ? review.user.email : review.user.name %>
+                      <span class="review-time small text-muted">
+                        <i class="fa fa-clock-o"></i> <span><%= time_ago_in_words(review.created_at) %> ago</span>
+                      </span>
+                  <% end %>
+              <% end %>
+          <% end %>
+
+          <!-- Show book linked image if coming form user view -->
+          <% if controller.controller_name == 'users' %>
+              <% if defined?(review.book) && !review.book.blank? %>
+                  <%= link_to book_path(review.book_id) do %>
+                      <%= review.book.title %>
+                      <span class="review-time small text-muted">
+                        <i class="fa fa-clock-o"></i> <span><%= time_ago_in_words(review.created_at) %> ago</span>
+                      </span>
+                  <% end %>
+              <% end %>
+          <% end %>
+
+        </div>
+        <div class="review-meta">
+          <div class="star-rating" data-score="<%= review.rating.blank? ? 0 : review.rating %>"></div>
+          <div class="review-tools">
+            <% if user_signed_in? && (current_user.id == review.user.id) && !review.book.blank? %>
+                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit",
+                            class: "text-primary btn btn-sm btn-secondary" do %>
+                    <span class="fa fa-pencil"></span>
+                <% end %>
+                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}", method: :delete,
+                            class: "text-primary btn btn-sm btn-secondary", data: {confirm: "Are you sure?"} do %>
+                    <span class="fa fa-trash"></span>
+                <% end %>
             <% end %>
-          <% end %>
-      <% end %>
+          </div>
+          <div class="review-time small text-muted">
 
-    </div><!-- /thumbnail -->
+          </div>
+        </div>
 
-    <div>
-      <!-- Show user name if coming from book view -->
-      <% if controller.controller_name == 'books' %>
-        <% if defined?(review.user) && !review.user.blank? %>
-          <%= link_to "/users/#{review.user_id}" do %>
-            <%= review.user.name.blank? ? review.user.email : review.user.name %>
-          <% end %>
-        <% end %>
-      <% end %>
 
-      <!-- Show book linked image if coming form user view -->
-      <% if controller.controller_name == 'users' %>
-        <% if defined?(review.book) && !review.book.blank? %>
-          <%= link_to book_path(review.book_id) do %>
-              <%= review.book.title %>
-          <% end %>
-        <% end %>
-      <% end %>
+        <div class="review-content">
 
-      <% if user_signed_in? && (current_user.id == review.user.id) && !review.book.blank? %> |
-          <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit", class: "btn btn-xs btn-warning" do %>
-              <span class="glyphicon glyphicon-pencil"></span>
-          <% end %>
-          <%= link_to "/books/#{review.book.id}/reviews/#{review.id}", method: :delete, class: "btn btn-xs btn-danger" do %>
-              <span class="glyphicon glyphicon-trash"></span>
-          <% end %>
-      <% end %>
-      <div class="pull-right">
-        <span class="text-muted"><%= time_ago_in_words(review.created_at) %> ago</span>
+          <div class="clearfix visible-xs-block"></div>
+          <div><%= review.content.blank? ? '' : raw(review.content) %></div>
+        </div>
+
       </div>
 
     </div>
-
-    <div class="star-rating" data-score="<%= review.rating %>"></div>
-    <div class="clearfix visible-xs-block"></div>
-    <div><%= review.content %></div>
-
-  </div><!-- /col-sm-12 -->
-</div>
-<div class="clearfix"></div>
-<hr style="margin: 10px 0 "/>
-
+  </div>
+</li>
+<!-- / Review -->

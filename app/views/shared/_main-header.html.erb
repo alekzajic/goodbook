@@ -1,0 +1,20 @@
+<header class="main-header positioner">
+  <div class="block-search">
+    <!-- SEARCH-->
+    <%= form_tag search_books_path, method: :get, role: "search" do %>
+        <div class="form-group">
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for...", type: "search" %>
+            <span class="input-group-btn">
+                    <%= button_tag name: nil, class: "btn btn-primary", type: "submit" do %>
+                      <span class="fa fa-search"></span>
+                    <% end %>
+                  </span>
+          </div>
+
+        </div>
+
+    <% end %>
+  </div>
+</header>
+<!-- / .main-heder -->

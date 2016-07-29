@@ -1,10 +1,22 @@
-<div class="row">
-  <% @books.each do |book| %>
 
-      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-        <div class="thumbnail">
-          <%= link_to (image_tag book.cover.url(:medium), class: 'image'), book %>
-        </div>
-      </div>
-  <% end %>
+<!-- SEARCHED BOOKS -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card-deck">
+      <% @books.each do |book| %>
+
+          <div class="card card-inverse book-card">
+            <%= link_to  book,  title: "#{book.title}" do %>
+                <%= image_tag book.cover.url(:medium), class: 'card-img' %>
+
+                <div class="card-img-overlay">
+                  <h4 class="card-title text-center"><%= book.title %></h4>
+                </div>
+            <% end %>
+          </div>
+
+      <% end %>
+    </div>
+  </div>
 </div>
+

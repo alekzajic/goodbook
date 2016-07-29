@@ -1,0 +1,61 @@
+<!-- Logo -->
+<div class="logo">
+  <%= link_to "goodbook", root_path, class: "navbar-brand" %>
+</div>
+
+<!-- Main Menu -->
+<ul class="main-nav">
+  <li class="<%= current_class?(root_path) %>">
+    <%= link_to root_path do %>
+        <i class="fa fa-search"></i>News Feed
+    <% end %>
+  </li>
+  <li class="<%= current_class?(books_path) %>">
+    <%= link_to "#collapseBookMenu",
+                { class: "",
+                  data: {toggle: "collapse"},
+                  role: "navigation",
+                  aria: { controls: "collapseBookMenu", expanded: "false" }} do %>
+        Books <span class="caret"></span>
+    <% end %>
+    <ul class="collapse" id="collapseBookMenu">
+      <li class="<%= current_class?(books_path)%>"><%= link_to "All Books", books_path %></li>
+      <% if user_signed_in? %>
+      <li class="<%= current_class?(new_book_path)%>">
+        <%= link_to "Add a Book", new_book_path %>
+      </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
+
+<!-- User Menu -->
+<ul class="user-nav">
+  <% if user_signed_in? %>
+  <li class="user-details <%= current_class?(current_user) %>">
+    <div>
+      <%= link_to current_user do%>
+          <div class="user-avatar">
+            <%= image_tag current_user.avatar.url(:thumb), class: "img-rounded", style: "width: 48px; height: 48px;" %>
+          </div>
+          <div class="user-name">
+          <% unless current_user.name.blank? %>
+              <span><%= current_user.name %></span>
+          <% else %>
+              <span><%= current_user.email %></span>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </li>
+  <li>
+    <%= link_to destroy_user_session_path, method: :delete do %>
+    <i class="fa fa-power-off"></i>Sign out
+    <% end %>
+  </li>
+  <% else %>
+    <li><%= link_to "Sign Up", new_user_registration_path, class: 'active' %></li>
+    <li><%= link_to "Sign In", new_user_session_path, class: 'active' %></li>
+  <% end %>
+</ul>
+

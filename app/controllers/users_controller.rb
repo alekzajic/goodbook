@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+
   before_action :set_user
   before_action :authenticate_user!
+
 
   # User Detail view
   # /users/:id
@@ -16,7 +18,7 @@ class UsersController < ApplicationController
     # If there are reviews by user
     unless @reviews.blank?
       # Set average rating
-      @avg_rating = @reviews.average(:rating).round(2)
+      @avg_rating = @reviews.average(:rating).round(2,2)
 
       # Set reviews count
       @reviews_count = @reviews.count

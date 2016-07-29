@@ -1,91 +1,218 @@
-<script type="text/javascript" charset="utf-8">
-$(function () {
-  $('.star-rating').raty({
-    path: '/assets',
-    readOnly: 'true',
-    score: function(){
-      return $(this).attr('data-score');
-    }
-  });
-})
-</script>
+<!-- Breadcrumbs -->
+<ol class="breadcrumb">
+  <li><%= link_to "Books", books_path %></li>
+  <li class="active"><%= @book.title %></li>
+</ol>
 
+<!-- Book view -->
+<div class="row">
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="pull-left">
-      <%= link_to 'Back', books_path, class: 'btn btn-default btn-xs' %>
+  <div class="col-md-8">
+
+    <!-- Book -->
+    <div class="card book">
+      <div class="card-block">
+          <div class="book-cover">
+            <%= image_tag @book.cover.url(:medium), class: "book-cover-img" %>
+          </div>
+          <div class="book-details">
+            <h1 class="book-title"><%= @book.title %></h1>
+            <% unless @reviews.blank? %>
+                <div class="book-average-review">
+                  <span class="star-rating" data-score="<%= @avg_rating %>"></span>
+                  <span style="margin-left: 10px"><%= @avg_rating %></span>
+                  <span style="margin-left: 10px"><%= @reviews_count %> reviews</span>
+                </div>
+            <% end %>
+            <div class="book-description">
+              <%= @book.description.blank? ? 'The book description is missing' : raw(@book.description) %>
+            </div>
+          </div>
+      </div>
     </div>
-    <% if user_signed_in? %>
-    <div class="pull-right">
-      <%= link_to edit_book_path(@book), class: 'btn btn-warning btn-xs' do %>
-        <span class="glyphicon glyphicon-pencil"></span> Edit Book
+    <!-- / Book-->
+
+  </div>
+  <!-- / .col-md-8 -->
+
+  <div class="col-md-4">
+
+    <!-- Book details -->
+    <div class="card">
+      <div class="card-header bg-white">
+        <h5 class="card-title">Book details</h5>
+      </div>
+      <% if user_signed_in? %>
+      <div class="card-tools">
+            <div class="pull-right">
+              <%= link_to edit_book_path(@book), class: 'btn btn-primary btn-sm' do %>
+                  <span class="fa fa-pencil"></span> Edit
+              <% end %>
+              <%= link_to book_path(@book), method: :delete, class: 'btn btn-danger btn-sm' do %>
+                  <span class="fa fa-trash"></span> Delete
+              <% end %>
+            </div>
+      </div>
       <% end %>
-    </div>
-    <% end %>
-    <div class="clearfix"></div>
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-12">
-        <div>
-          <%= image_tag @book.cover.url(:medium), {width: "100%"} %>
+      <div class="list-group list-group-sm list-group-fit">
+        <div class="list-group-item">
+          <span class="text-primary pull-xs-right strong">
+            <%= @book.year_published.blank? ? "N/A" : @book.year_published %>.
+          </span> Published
+        </div>
+        <div class="list-group-item">
+          <span class="text-primary pull-xs-right strong">
+            <%= @book.pages.blank? ? "N/A" : @book.pages %>
+          </span> No. of pages
+        </div>
+        <div class="list-group-item">
+          <span class="text-primary pull-xs-right strong">
+
+            <%= @book.isbn.blank? ? "N/A" : @book.isbn %>
+          </span> ISBN
+          <%= link_to "https://www.goodreads.com/search?q=#{@book.isbn}",
+                      title: "Find on Goodreads",
+                      class: "btn btn-sm btn-secondary text-primary" do %>
+              <i class="fa fa-info"></i>
+          <% end %>
         </div>
       </div>
-      <div class="col-md-8 col-sm-6 col-xs-12">
-        <h1 class="text-primary"><%= @book.title %></h1>
-        <% unless @reviews.blank? %>
-        <div style="margin: 0 0 20px">
-          <span class="star-rating" data-score="<%= @avg_rating %>"></span>
-          <span style="margin-left: 10px"><%= @avg_rating %></span>
-          <span style="margin-left: 10px"><%= @reviews_count %> reviews</span>
-        </div>
-        <% end %>
-        <div><%= @book.description %></div>
-        <hr>
-        <table class="table-responsive">
-          <tr>
-            <td><strong>Published:</strong></td>
-            <td><%= @book.year_published %>.</td>
-          </tr>
-          <tr>
-            <td><strong>No. of pages:</strong></td>
-            <td><%= @book.pages %> pages</td>
-          </tr>
-          <tr>
-            <td><strong>ISBN:</strong></td>
-            <td><%= @book.isbn %></td>
-          </tr>
-        </table>
+    </div>
+    <!-- / Book details -->
+  </div>
+  <!-- / .col-md-4 -->
+</div>
+<!-- / .row -->
+
+<div class="row">
+  <div class="col-md-8">
+
+    <!-- Reviews -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Reviews</h5>
       </div>
+      <div class="card-tools">
+        <div class="subtitle">
+          <% if user_signed_in? %>
+              <div class="pull-right">
+                <%= link_to new_book_review_path(@book), class: 'btn btn-sm btn-primary' do %>
+                  <i class="fa fa-pencil"></i> Write a Review
+              <% end %>
+              </div>
+              <div class="clearfix"></div>
+          <% end %>
+        </div>
+      </div>
+      <% if @book.reviews.blank? %>
+          <div style="padding: 20px">
+            <p>Be the first to review this book.</p>
+            <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-link' %>
+          </div>
+      <% else %>
+        <ul class="review-list list-group list-group-fit">
+          <% @reviews.each do |review| %>
+              <%= render partial: 'reviews/review', locals: {review: review} %>
+          <% end %>
+        </ul>
+      <% end %>
+
     </div>
   </div>
+  <!-- / .col-md-8 -->
 
-</div>
+  <div class="col-md-4">
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    Reviews
-    <% if user_signed_in? %> |
-      <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-xs btn-info' %>
-    <% end %>
+    <!-- Author -->
+    <div class="card">
+      <div class="card-header bg-white">
+        <h5 class="card-title">About author <span class="text-danger">TODO!</span></h5>
+      </div>
+      <div class="card-block card-block-half center">
+        <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        <div><a href="#" class="btn btn-default btn-sm">View All Books by This author</a></div>
+      </div>
+    </div>
+    <!-- / Author -->
+
+    <!-- Favorites -->
+    <div class="card">
+      <div class="card-header bg-white">
+        <h5 class="card-title">Favorite to <span class="text-danger">TODO!</span></h5>
+      </div>
+      <div class="users-favorites">
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <a href="#" class="photo-link">
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar" %>
+        </a>
+        <div class="clearfix"></div>
+      </div>
+      <div class="card-block card-block-half center">
+        <a href="#" class="btn btn-default btn-sm">View All</a>
+      </div>
+    </div>
+    <!-- / Favorites -->
+
+    <!-- Lists -->
+    <div class="card">
+      <div class="card-header bg-white">
+        <h5 class="card-title">Lists <span class="text-danger">TODO!</span></h5>
+      </div>
+      <div class="list-group list-group-sm list-group-fit">
+        <div class="list-group-item">
+          <small class="text-muted pull-xs-right">1 hr ago</small>
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <a href="#">Bestsellers</a>
+        </div>
+        <div class="list-group-item">
+          <small class="text-muted pull-xs-right">2 hrs ago</small>
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <a href="#">Classics</a>
+        </div>
+        <div class="list-group-item">
+          <small class="text-muted pull-xs-right">5 hrs ago</small>
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <a href="#">My Fantasy List</a>
+        </div>
+        <div class="list-group-item">
+          <small class="text-muted pull-xs-right">2 days ago</small>
+          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <a href="#">Fiction</a>
+        </div>
+      </div>
+    </div>
+    <!-- / Lists -->
+
   </div>
-  <div class="panel-body">
-
-    <% if @book.reviews.blank? %>
-        <p>No reviews just jet.</p>
-        <p>Be the first to review this book.</p>
-        <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-link' %>
-    <% else %>
-        <% @reviews.each do |review| %>
-            <%= render partial: 'reviews/review', locals: {review: review} %>
-        <% end %>
-    <% end %>
-
-
-  </div>
+  <!-- / .col-md-4 -->
 </div>
-
-
-
-
+<!-- / .row -->

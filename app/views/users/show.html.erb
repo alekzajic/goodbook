@@ -1,46 +1,106 @@
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    $('.star-rating').raty({
-      path: '/assets',
-      readOnly: 'true',
-      score: function(){
-        return $(this).attr('data-score');
-      }
-    });
-  })
-</script>
-
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-
-<%= link_to "#{@user.email}", @user.email, class: "btn-link" %><br>
-
-<%= @user.name %> <br>
-
-<%= @user.city %> <br>
-
-<%= @user.birthday %><br>
-
-<%= @user.about %><br>
-
-<%= image_tag @user.avatar.url(:medium) %><br>
-
-<div>
-  <% unless @reviews.blank? %>
-      <div style="margin:20px">
-        <span class="star-rating" data-score="<%= @avg_rating %>"></span>
-        <span style="margin:0 10px">Avg rating: <%= @avg_rating %></span> |
-        <span style="margin:0 10px"><%= pluralize( @reviews_count , 'review')%></span>
+<!-- USER -->
+<div class="row user">
+  <!-- User Details -->
+  <div class="col-sm-4 user-details-col">
+    <div class="card">
+      <div class="profile-sidebar">
+        <div class="profile-sidebar-item profile-avatar text-center">
+          <%= image_tag @user.avatar.url(:medium), class: "img-circle" %>
+        </div>
+        <div class="profile-sidebar-item profile-info text-center">
+          <div class="user-name"><%= @user.name.blank? ? "N/A" : @user.name %></div>
+          <div class="user-city"><i class="fa fa-map-marker"></i> <%= @user.city.blank? ? "N/A" : @user.city %></div>
+          <div class="user-birthday"><i class="fa fa-birthday-cake"></i> <%= @user.birthday.blank? ? "N/A" : @user.birthday.to_formatted_s(:long) %></div>
+          <div class="user-action text-center">
+            <% if current_user.id == @user.id %>
+              <%= link_to "/users/edit", class: "btn btn-primary btn-sm" do %>
+                  <i class="fa fa-pencil"></i> EDIT
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <hr>
+        <% unless @reviews.blank? %>
+        <ul class="profile-sidebar-item profile-numbers-count">
+          <li>
+            <div>
+              <% if defined?(@avg_rating) && !@avg_rating.blank? %>
+                <span class="user-avg-rating"><%= @avg_rating %></span> <br>
+                <span class="star-rating" data-score="<%= @avg_rating %>"></span>
+              <% else %>
+                  <span class="user-avg-rating">N/A</span>
+              <% end %>
+            </div>
+            <div class="text-bold">avg.rating</div>
+          </li>
+          <li>
+            <div>
+              <% if defined?(@reviews_count) && !@reviews_count.blank? %>
+              <span class="user-sum-reviews"><%= @reviews_count %></span>
+              <% else %>
+                  <span class="user-avg-rating">N/A</span>
+              <% end %>
+            </div>
+            <div class="text-bold"># of reviews</div>
+          </li>
+        </ul>
+        <% end %>
+        <hr>
+        <div class="profile-sidebar-item profile-bio">
+          <small class="text-bold text-uppercase">About</small>
+          <div>
+            <%= @user.about.blank? ? "N/A" : raw(@user.about) %>
+          </div>
+        </div>
+        <hr>
+        <div class="profile-sidebar-item profile-links">
+          <small class="text-bold text-uppercase">Contact</small>
+          <ul class="user-meta">
+            <li>
+              <%= link_to "mailto:#{@user.email}", class: "link" do %>
+                <i class="fa fa-envelope"></i> <%= @user.email %>
+              <% end %>
+            </li>
+            <li><a href="javascript:;"><i class="fa fa-twitter"></i> Twitter</a></li>
+            <li><a href="javascript:;"><i class="fa fa-facebook"></i> Facebook</a></li>
+          </ul>
+        </div>
       </div>
-  <% end %>
+    </div>
+  </div>
+  <!-- / .user-details-col -->
+  <!-- User references -->
+  <div class="col-sm-8 user-references-col">
+    <div class="card">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#reviews" data-toggle="tab" aria-expanded="false">Reviews</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#timeline" data-toggle="tab" aria-expanded="false">Timeline</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#books" data-toggle="tab" aria-expanded="true">Books Read</a>
+        </li>
+      </ul>
+      <div class="card-block tab-content">
+        <div class="tab-pane active" id="reviews" aria-expanded="false">
+          <% unless @reviews.blank? %>
+              <% @reviews.each do |review| %>
+                  <%= render partial: 'reviews/review', locals: {review: review} %>
+              <% end %>
+          <% end %>
+        </div>
+        <div class="tab-pane" id="timeline" aria-expanded="false">
+          <h5 class="text-danger">TODO TIMELINE!</h5>
+        </div>
+        <div class="tab-pane" id="books" aria-expanded="true">
+          <h5 class="text-danger">TODO BOOKS!</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- / .user-references-col -->
 </div>
-
-<div>
-  <% unless @reviews.blank? %>
-      <% @reviews.each do |review| %>
-          <%= render partial: 'reviews/review', locals: {review: review} %>
-      <% end %>
-  <% end %>
-</div>
-
-
+<!-- / .row -->
+<!-- / USER -->

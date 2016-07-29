@@ -11,32 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <% unless @review.rating.blank? %>
-      <div class="star-rating" data-score="<%= @review.rating %>"></div>
+  <div class="form-group">
+    <% if @review.new_record? %>
+        <div class="star-rating-edit" data-score="0"></div>
     <% else %>
-      <div class="star-rating"></div>
+        <div class="star-rating-edit" data-score="<%= @review.rating %>"></div>
     <% end %>
+
+    <%= f.label :rating, class: "col-form-label" %>
+
+    <small id="titleHelp" class="form-text text-muted">Rate the book.</small>
   </div>
 
-  <div class="field">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="form-group ">
+    <%= f.label :content, class: "col-form-label" %>
+    <%= f.text_area :content, as: :summernote, data: { provider: "summernote" }, class:"form-control",aria: { describeby: "contentHelp" } %>
+    <small id="contentHelp" class="form-text text-muted">Full review of the book.</small>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions" style="margin-top: 20px">
+    <%= f.submit "Update", class: "btn btn-danger" %>
+    <%= link_to 'Cancel', book_path(@book), class: "btn btn-secondary", style:"margin-left:10px" %>
   </div>
+
 <% end %>
-
-<script>
-  $(function () {
-    $('.star-rating').raty({
-      path: '/assets/',
-      scoreName: 'review[rating]',
-      score: function(){
-        return $(this).attr('data-score');
-      }
-    });
-  })
-</script>

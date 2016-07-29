@@ -1,25 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+
     <title>Goodbook</title>
+
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <%= csrf_meta_tags %>
 
+    <!-- Styles -->
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Javascript -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= render "shared/header" %>
-    <main>
-      <div class="container">
-        <!-- FLASH MESSAGES -->
-        <% flash.each do |name, msg| %>
-            <%= content_tag(:div, msg, class: "alert alert-info") %>
-        <% end %>
+  <body class="app">
+  <!-- Wrapper -->
+  <div class="wrapper">
 
-        <%= yield %>
-      </div>
-    </main>
+    <!-- Left Sidebar -->
+    <div class="aside-1">
+
+      <%= render "shared/left-sidebar" %>
+
+    </div>
+    <!-- / .aside-1 -->
+
+    <!-- Main -->
+    <div class="main">
+
+      <!-- Header -->
+      <%= render 'shared/main-header' %>
+
+      <!-- Main Content-->
+      <main class="main-content container-fluid">
+
+        <div class="main-content-wrapper row">
+
+          <!-- Main Left Column-->
+          <div class="main-left-col col-sm-12">
+            <!-- FLASH MESSAGES -->
+            <% flash.each do |name, msg| %>
+                <%= content_tag(:div, msg, class: "alert alert-info") %>
+            <% end %>
+            <%= yield %>
+          </div>
+
+        </div>
+      </main>
+      <!-- / .main-content -->
+
+      <footer class="main-footer">
+        <div class="text-center text-bold">
+          <small>Copiright &copy; 2016.Developed with <i class="fa fa-heart text-danger"></i> by Aleksandar Zajic. </small>
+        </div>
+      </footer>
+      <!--/ .main-footer -->
+
+    </div>
+    <!-- / .main -->
+
+
+  </div>
+  <!-- / .wrapper -->
 
   </body>
 </html>

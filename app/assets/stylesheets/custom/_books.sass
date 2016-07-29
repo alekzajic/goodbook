@@ -1,0 +1,83 @@
+//
+// ==========================================================================
+// Custom Styles - Books
+// ==========================================================================
+//
+
+// List view
+// ==========================================================================
+.card-deck
+  .card.book-card
+    border-color: $sidebar-bg
+    flex: 0
+
+    .card-img
+      width: 200px
+      height: 302px
+      display: block
+
+    .card-img-overlay
+      opacity: 0
+      transition: opacity 0.3s
+
+      .card-title
+        margin-top: 100px
+        font-size: 16px
+        text-align: center
+        color: #000
+
+    &:hover
+      .card-img-overlay
+        opacity: 1
+        background: rgba($secondary,0.9)
+        border-radius: 5px
+
+
+// Detail view
+// ==========================================================================
+.card.book
+  .card-block
+    display: flex
+    flex-direction: row
+
+.book-cover
+  flex: 0 0 auto
+
+  .book-cover-img
+    width: 200px
+    height: 300px
+
+.book-details
+  padding: 0 20px 20px 20px
+
+  .book-title
+    font-size: 30px
+
+  .book-average-review
+    margin-bottom: 10px
+
+  .book-description
+    font-size: 14px
+    line-height: 20px
+
+
+
+.users-favorites
+  display: block
+  background: #efefef
+  border-bottom: 1px solid $card-border-color
+  padding-top: .325rem
+  padding-right: .325rem
+  min-height: 78px
+  a.photo-link
+    float: left
+    margin-right: 0
+    width: 12.5%
+    border: 1px solid rgba(255,255,255, .54)
+    margin-left: .325rem
+    margin-bottom: .325rem
+    img
+      display: block
+      width: 100%
+
+
