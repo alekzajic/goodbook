@@ -1,20 +1,65 @@
 <header class="main-header positioner">
   <div class="block-search">
-    <!-- SEARCH-->
-    <%= form_tag search_books_path, method: :get, role: "search" do %>
-        <div class="form-group">
-          <div class="input-group">
-            <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for...", type: "search" %>
-            <span class="input-group-btn">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <!-- SEARCH-->
+          <%= form_tag search_books_path, method: :get, role: "search" do %>
+              <div class="form-group">
+                <div class="input-group">
+                  <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for...", type: "search" %>
+                  <span class="input-group-btn">
                     <%= button_tag name: nil, class: "btn btn-primary", type: "submit" do %>
                       <span class="fa fa-search"></span>
                     <% end %>
                   </span>
-          </div>
-
+                </div>
+              </div>
+          <% end %>
         </div>
+        <!-- / .col-sm-6 -->
+        <div class="col-sm-6">
+          <!-- User Menu -->
+          <div class="user-nav">
+            <% if user_signed_in? %>
+                <div class="user-details">
 
-    <% end %>
+                  <div class="user-avatar">
+                    <%= link_to current_user do %>
+                        <%= image_tag current_user.avatar.url(:thumb), class: "img-rounded", style: "width: 30px; height: 30px;" %>
+                    <% end %>
+                  </div>
+                  <div class="user-name hidden-sm-down" style="margin-left: 5px">
+                    <%= link_to current_user do %>
+                        <% unless current_user.name.blank? %>
+                            <span><%= current_user.name %></span>
+                        <% else %>
+                            <span><%= current_user.email %></span>
+                        <% end %>
+                    <% end %>
+                  </div>
+                  <div class="user-sign-out-btn" style="margin-left: 20px;">
+                    <%= link_to destroy_user_session_path, method: :delete, title: "Sign Out" do %>
+                        <i class="fa fa-fw fa-power-off"></i>
+                    <% end %>
+                  </div>
+
+                </div>
+            <% else %>
+                <div class="no-user-actions">
+
+                    <div><%= link_to "SIGN UP", new_user_registration_path, class: 'btn btn-sm btn-warning' %></div>
+                    <div style="margin-left: 10px"><%= link_to "SIGN IN", new_user_session_path, class: 'btn btn-sm btn-primary' %></div>
+
+                </div>
+            <% end %>
+          </div>
+        </div>
+        <!-- / .col-sm-6 -->
+      </div>
+      <!-- / .row -->
+    </div>
   </div>
+  <!-- / .block-search -->
 </header>
 <!-- / .main-heder -->

@@ -1,5 +1,10 @@
 <!-- Breadcrumbs -->
 <ol class="breadcrumb">
+  <li>
+    <%= link_to root_path do %>
+        <i class="fa fa-home"></i>
+    <% end %>
+  </li>
   <li><%= link_to "Books", books_path %></li>
   <li class="active"><%= @book.title %></li>
 </ol>
@@ -7,27 +12,27 @@
 <!-- Book view -->
 <div class="row">
 
-  <div class="col-md-8">
+  <div class="col-md-8 book-left-col">
 
     <!-- Book -->
     <div class="card book">
       <div class="card-block">
-          <div class="book-cover">
-            <%= image_tag @book.cover.url(:medium), class: "book-cover-img" %>
+        <div class="book-cover">
+          <%= image_tag @book.cover.url(:medium), class: "book-cover-img" %>
+        </div>
+        <div class="book-details">
+          <h1 class="book-title"><%= @book.title %></h1>
+          <% unless @reviews.blank? %>
+              <div class="book-average-review">
+                <span class="star-rating" data-score="<%= @avg_rating %>"></span>
+                <span style="margin-left: 10px"><%= @avg_rating %></span>
+                <span style="margin-left: 10px"><%= @reviews_count %> reviews</span>
+              </div>
+          <% end %>
+          <div class="book-description">
+            <%= @book.description.blank? ? 'The book description is missing' : raw(@book.description) %>
           </div>
-          <div class="book-details">
-            <h1 class="book-title"><%= @book.title %></h1>
-            <% unless @reviews.blank? %>
-                <div class="book-average-review">
-                  <span class="star-rating" data-score="<%= @avg_rating %>"></span>
-                  <span style="margin-left: 10px"><%= @avg_rating %></span>
-                  <span style="margin-left: 10px"><%= @reviews_count %> reviews</span>
-                </div>
-            <% end %>
-            <div class="book-description">
-              <%= @book.description.blank? ? 'The book description is missing' : raw(@book.description) %>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
     <!-- / Book-->
@@ -35,7 +40,7 @@
   </div>
   <!-- / .col-md-8 -->
 
-  <div class="col-md-4">
+  <div class="col-md-4 book-right-col">
 
     <!-- Book details -->
     <div class="card">
@@ -43,7 +48,7 @@
         <h5 class="card-title">Book details</h5>
       </div>
       <% if user_signed_in? %>
-      <div class="card-tools">
+          <div class="card-tools">
             <div class="pull-right">
               <%= link_to edit_book_path(@book), class: 'btn btn-primary btn-sm' do %>
                   <span class="fa fa-pencil"></span> Edit
@@ -52,7 +57,7 @@
                   <span class="fa fa-trash"></span> Delete
               <% end %>
             </div>
-      </div>
+          </div>
       <% end %>
       <div class="list-group list-group-sm list-group-fit">
         <div class="list-group-item">
@@ -85,7 +90,7 @@
 <!-- / .row -->
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-8 book-left-col">
 
     <!-- Reviews -->
     <div class="card">
@@ -97,8 +102,8 @@
           <% if user_signed_in? %>
               <div class="pull-right">
                 <%= link_to new_book_review_path(@book), class: 'btn btn-sm btn-primary' do %>
-                  <i class="fa fa-pencil"></i> Write a Review
-              <% end %>
+                    <i class="fa fa-pencil"></i> Write a Review
+                <% end %>
               </div>
               <div class="clearfix"></div>
           <% end %>
@@ -110,18 +115,18 @@
             <%= link_to 'Write a Review', new_book_review_path(@book), class: 'btn btn-link' %>
           </div>
       <% else %>
-        <ul class="review-list list-group list-group-fit">
-          <% @reviews.each do |review| %>
-              <%= render partial: 'reviews/review', locals: {review: review} %>
-          <% end %>
-        </ul>
+          <ul class="review-list list-group list-group-fit">
+            <% @reviews.each do |review| %>
+                <%= render partial: 'reviews/review', locals: {review: review} %>
+            <% end %>
+          </ul>
       <% end %>
 
     </div>
   </div>
   <!-- / .col-md-8 -->
 
-  <div class="col-md-4">
+  <div class="col-md-4 book-right-col ">
 
     <!-- Author -->
     <div class="card">
@@ -216,3 +221,15 @@
   <!-- / .col-md-4 -->
 </div>
 <!-- / .row -->
+
+<script type="text/javascript" charset="utf-8">
+  $('.star-rating').each(function () {
+    $(this).raty({
+      path: '/assets/',
+      readOnly: 'true',
+      score: function () {
+        return $(this).attr('data-score');
+      }
+    });
+  });
+</script>

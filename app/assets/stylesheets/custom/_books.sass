@@ -4,16 +4,37 @@
 // ==========================================================================
 //
 
+@media (max-width: 543px)
+
+  .main-left-col
+    .row
+      .col-sm-12
+        flex: 1
+
+  .card-deck
+    display: flex
+    flex-wrap: wrap
+    flex-direction: row
+    .card.book-card
+      flex: 0
+      margin-left: 5px
+
+
+      .card-img-overlay
+        display: none
+
+
 // List view
 // ==========================================================================
 .card-deck
   .card.book-card
     border-color: $sidebar-bg
     flex: 0
+    border-bottom-width: 3px
 
     .card-img
-      width: 200px
-      height: 302px
+      width: 100px
+      height: auto
       display: block
 
     .card-img-overlay
@@ -45,7 +66,7 @@
 
   .book-cover-img
     width: 200px
-    height: 300px
+    height: auto
 
 .book-details
   padding: 0 20px 20px 20px
@@ -80,4 +101,13 @@
       display: block
       width: 100%
 
+.book-left-col, .book-right-col
+  width: 100%
+// md screens
+// ==========================================================================
 
+@media (min-width: 48em)
+  .card-deck
+    .card.book-card
+      .card-img
+        width: 150px

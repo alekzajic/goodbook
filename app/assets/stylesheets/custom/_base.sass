@@ -3,6 +3,8 @@
 // Custom Styles - Base
 // ==========================================================================
 //
+
+
 a:hover
   text-decoration: none
 
@@ -64,7 +66,7 @@ body
   width: 100%
   display: flex
   flex-direction: column
-  flex: 1
+  //flex: 1
 
   background: $sidebar-bg
 
@@ -73,22 +75,42 @@ body
     background: $logo-bg
     display: flex
 
-    a
+    a.navbar-brand
       line-height: 70px
       flex-grow: 1
       text-align: center
       color: #FFF
+    button.navbar-toggler
+      //line-height: 70px
+      flex: 0
+      color: #FFF
+      border: 0
+      border-radius: 0
+      width: 70px
+
 
   .main-nav
     display: flex
-    flex-direction: column
+    flex-direction: row
     flex-grow: 1
+    justify-content: center
+    //height: 0
+    //overflow: hidden
+
+    //&.active
+    //  height: 135px
+
 
     li
-      flex-basis: 45px
+      justify-content: center
+      display: flex
+      flex: 1
 
       &.active a
-        background: $sidebar-item-hover-bg
+        background: $secondary
+        color: $sidebar-item-hover-bg
+        .fa
+          color: $sidebar-item-hover-bg
 
         &::before
           content: ""
@@ -100,57 +122,10 @@ body
 
       a
         display: block
-        line-height: 45px
-        padding-left: 65px
-        font-size: 14px
-        color: $sidebar-text
-        position: relative
-
-        &:hover::before
-          content: ""
-          background: $secondary
-          width: 3px
-          height: 45px
-          position: absolute
-          left: 0
-
-        &:hover
-          background: $sidebar-item-hover-bg
-
-        .fa
-          position: absolute
-          left: 30px
-          top: 15px
-          font-size: 18px
-          color: $sidebar-text
-
-  .user-nav
-    display: flex
-    flex-direction: column
-    flex: 0 0 158px
-
-    li
-      flex-basis: 45px
-
-      &.user-details
+        width: 100%
         text-align: center
-        a
-          padding-left: 0
-          padding-top: 20px
-          text-decoration: none
-          &:hover::before
-            content: ""
-            background: transparent
-
-            width: 0
-            height: 113px
-            position: absolute
-            left: 0
-
-      a
-        display: block
         line-height: 45px
-        padding-left: 65px
+        padding-left: 25px
         font-size: 14px
         color: $sidebar-text
         position: relative
@@ -163,16 +138,17 @@ body
           position: absolute
           left: 0
 
-
         &:hover
-          background: $sidebar-item-hover-bg
+          background: $secondary
+          color: $sidebar-item-hover-bg
 
         .fa
-          position: absolute
           left: 30px
           top: 15px
           font-size: 18px
           color: $sidebar-text
+
+
 
   .books-menu
     position: relative
@@ -183,11 +159,14 @@ body
 // Main
 // ==========================================================================
 .main
-  flex: 1 1 600px
+  //flex: 1 1 600px
   display: flex
   flex-direction: column
 
   background: $app-bg
+
+  .main-left-col
+    overflow-x: hidden
 
 
 .positioner
@@ -203,27 +182,36 @@ body
   width: 100%
   display: flex
   flex: 0 0 auto
-  flex-direction: row
+  flex-direction: column
   justify-content: space-between
   align-items: center
 
   .block-search
-    flex: 1 1 50%
-    height: 70px
+    flex: 1
+    //height: 70px
+
+    .col-sm-6
+      width: 100%
+      flex: 1
+      &:first-child
+        flex: 2
+
+    .form-group
+      margin: 0
 
     form
-      position: relative
 
       input
         width: 100%
         height: 70px
         font-size: 16px
         //padding: 0 45px
-        color: $sidebar-text
+        color: $text-color
         border: none
 
         &:focus
           outline: none
+          background: #eeeeee
 
       .input-group-btn
         button
@@ -235,17 +223,40 @@ body
           border-radius: 0
           transition: 0.3s background
           &:hover
-            background: $secondary
+            background: $primary
             outline: none
           &:active
             outline: none
 
+.user-nav
+  display: flex
+  justify-content: flex-end
+  align-items: center
+  width: 100%
+  height: 70px
+  .no-user-actions
+    flex: 0 0 auto
+    flex-direction: row
+    display: flex
+    align-items: center
+  .user-details
+    flex: 0 0 auto
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    .user-sign-out-btn, .user-name
+      a
+        color: $app-bg
+        transition: color .3s
+        &:hover
+          color: $brand-primary
 
 // Main content
 // ==========================================================================
 .main-content.container-fluid
   display: flex
-  flex-direction: row
+  flex-direction: column
   flex: 1
   width: 100%
 
@@ -274,65 +285,90 @@ body
     border-radius: 0
 
     li
+      color: lighten($app-bg, 10%)
+      &:before
+        color: lighten($app-bg, 10%)
       a
-        color: $text-color
+        color: lighten($app-bg, 10%)
       &.active
         font-weight: 700
-        color: $text-color
-
-
-// SM screens
-// ==========================================================================
-@media (min-width: 48em)
-
-.wrapper
-  flex-wrap: wrap
-  flex-direction: row
-  flex: 1
-
-  min-height: 100vh
-  height: 100%
-  width: 100%
-
-
-.aside-1
-  min-width: 200px
-  width: 100%
-  flex-direction: column
-  flex: 0 0 200px
-
-.main
-  flex: 1 1 400px
-  flex-direction: column
-
-
-.main-header
-  width: 100%
-  flex: 0 0 auto
-  flex-direction: row
-  justify-content: space-between
-  align-items: center
+        color:  lighten($app-bg, 30%)
 
 
 // MD screens
 // ==========================================================================
-@media (min-width: 62em)
-.main-content.container-fluid
-  flex-direction: row
-  flex: 1
+@media (min-width: 48em)
 
-  width: 100%
-
-  .main-content-wrapper
-    flex: 1
+  .wrapper
+    flex-wrap: wrap
     flex-direction: row
+    flex: 1
 
-    .main-left-col
-      flex: 2 2 50%
-      padding: 10px
-
-    .main-right-col
-      flex: 1 1 50%
-      padding: 10px
+    min-height: 100vh
+    height: 100%
+    width: 100%
 
 
+  .aside-1
+    min-width: 200px
+    width: 100%
+    flex-direction: column
+    flex: 0 0 200px
+
+    .main-nav
+      height: auto
+      flex-direction: column
+      flex: 0 0 auto
+
+
+      li
+        flex-basis: 45px
+        justify-content: flex-start
+        a
+          width: 100%
+          text-align: left
+
+  .main
+    flex: 1 1 400px
+    flex-direction: column
+
+
+  .main-header
+    width: 100%
+    flex: 0 0 auto
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+
+
+// LG screens
+// ==========================================================================
+@media (min-width: 62em)
+  .main-content.container-fluid
+    flex-direction: row
+    flex: 1
+
+    width: 100%
+
+    .main-content-wrapper
+      flex: 1
+      flex-direction: row
+
+      .main-left-col
+        flex: 2 2 50%
+        padding: 10px
+
+      .main-right-col
+        flex: 1 1 50%
+        padding: 10px
+
+@media (max-width: 549px)
+  .aside-1
+    .main-nav
+      li
+        a
+          padding: 10px 10px 0 10px
+          .fa
+            font-size: 2em
+          span
+            display: none

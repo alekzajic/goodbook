@@ -19,45 +19,42 @@
 //= require_tree .
 
 
+
+
+/**
+ * Initializes a Summernote WYSIWYG over an element
+ *
+ * Usage:
+ * Call function over the textarea input
+ *
+ * @param {jQuery} element object
+ */
+function initSummernote(element) {
+    window[element.attr('id')] = element.summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'hr']],
+            ['view', ['fullscreen', 'codeview']],
+            ['help', ['help']]
+        ],
+        minHeight: 100,             // set minimum height of editor
+        maxHeight: 400,              // set maximum height of editor
+        popover: {
+            image: [],
+            link: [],
+            air: []
+        }
+    });
+}
+
 $(function() {
-    $('[data-provider="summernote"]').each(function(){
-        $(this).summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'italic', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['height', ['height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'hr']],
-                ['view', ['fullscreen', 'codeview']],
-                ['help', ['help']]
-            ],
-            minHeight: 100,             // set minimum height of editor
-            maxHeight: 400              // set maximum height of editor
 
-        });
-    });
-
-    $('.star-rating').each(function() {
-        $(this).raty({
-            path: '/assets',
-            readOnly: 'true',
-            score: function () {
-                return $(this).attr('data-score');
-            }
-        });
-    });
-
-    $('.star-rating-edit').each(function() {
-        $(this).raty({
-            path: '/assets/',
-            scoreName: 'review[rating]',
-            score: function () {
-                return $(this).attr('data-score');
-            }
-            });
-
-    });
+    // on load
+    
 });
 

@@ -12,3 +12,21 @@
   </div>
 </div>
 
+<script type="text/javascript" charset="utf-8">
+
+  $(function () {
+    // init Summernote WYSiWYG
+    initSummernote($('#review_content'));
+
+    $('.star-rating-edit').each(function () {
+      $(this).raty({
+        path: '/assets/',
+        scoreName: 'review[rating]',
+        score: function () {
+          return $(this).attr('data-score');
+        }
+      });
+
+    });
+  });
+</script>

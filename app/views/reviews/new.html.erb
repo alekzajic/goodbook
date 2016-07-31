@@ -12,3 +12,18 @@
   </div>
 </div>
 
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    initSummernote($('#review_content'));
+
+    $('.star-rating-edit').each(function() {
+      $(this).raty({
+        path: '/assets/',
+        scoreName: 'review[rating]'
+      });
+
+    });
+  })
+
+
+</script>
