@@ -1,24 +1,12 @@
-# README
+# Goodbooks
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple book review app done in Ruby on Rails 5 and Bootstrap 4 *Flexbox* for my final thesis exam.
+It is my first Ruby on Rails app. It was fun learning experience.
 
-Things you may want to cover:
+Prerequisites:
 
-* Ruby version
+* Ruby on Rails 5
 
-* System dependencies
+* Imagemagick (paperclip gem) installed
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Elasticsearch installed

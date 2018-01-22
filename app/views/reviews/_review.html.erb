@@ -52,12 +52,10 @@
           <div class="star-rating" data-score="<%= review.rating.blank? ? 0 : review.rating %>"></div>
           <div class="review-tools">
             <% if user_signed_in? && (current_user.id == review.user.id) && !review.book.blank? %>
-                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit",
-                            class: "text-primary btn btn-sm btn-secondary" do %>
+                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}/edit", class: "text-primary btn btn-sm btn-secondary" do %>
                     <span class="fa fa-pencil"></span>
                 <% end %>
-                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}", method: :delete,
-                            class: "text-primary btn btn-sm btn-secondary", data: {confirm: "Are you sure?"} do %>
+                <%= link_to "/books/#{review.book.id}/reviews/#{review.id}", method: :delete, class: "text-primary btn btn-sm btn-secondary", data: {confirm: "Are you sure?"} do %>
                     <span class="fa fa-trash"></span>
                 <% end %>
             <% end %>

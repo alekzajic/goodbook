@@ -75,9 +75,7 @@
 
             <%= @book.isbn.blank? ? "N/A" : @book.isbn %>
           </span> ISBN
-          <%= link_to "https://www.goodreads.com/search?q=#{@book.isbn}",
-                      title: "Find on Goodreads",
-                      class: "btn btn-sm btn-secondary text-primary" do %>
+          <%= link_to "https://www.goodreads.com/search?q=#{@book.isbn}", title: "Find on Goodreads", class: "btn btn-sm btn-secondary text-primary" do %>
               <i class="fa fa-info"></i>
           <% end %>
         </div>
@@ -195,22 +193,22 @@
       <div class="list-group list-group-sm list-group-fit">
         <div class="list-group-item">
           <small class="text-muted pull-xs-right">1 hr ago</small>
-          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <%= image_tag 'thumb/no-avatar.png', {alt: "avatar", width: "25", class: "img-circle"} %>
           <a href="#">Bestsellers</a>
         </div>
         <div class="list-group-item">
           <small class="text-muted pull-xs-right">2 hrs ago</small>
-          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <%= image_tag 'thumb/no-avatar.png', {alt: "avatar", width: "25", class: "img-circle"} %>
           <a href="#">Classics</a>
         </div>
         <div class="list-group-item">
           <small class="text-muted pull-xs-right">5 hrs ago</small>
-          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <%= image_tag 'thumb/no-avatar.png', {alt: "avatar", width: "25", class: "img-circle"} %>
           <a href="#">My Fantasy List</a>
         </div>
         <div class="list-group-item">
           <small class="text-muted pull-xs-right">2 days ago</small>
-          <%= image_tag 'thumb/no-avatar.png', alt: "avatar", width: "25", class: "img-circle", alt: "people" %>
+          <%= image_tag 'thumb/no-avatar.png', {alt: "avatar", width: "25", class: "img-circle"} %>
           <a href="#">Fiction</a>
         </div>
       </div>
