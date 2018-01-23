@@ -2,7 +2,7 @@ source 'https://rubygems.org' do
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-  gem 'rails', '~> 5.0.0'
+  gem 'rails', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
 # Use Puma as the app server
@@ -23,7 +23,8 @@ source 'https://rubygems.org' do
   # updated to bs 4
   #gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
   gem 'autoprefixer-rails', '~> 6.3', '>= 6.3.7'
-  gem 'bootstrap', '~> 4.0.0.alpha3'
+  gem 'bootstrap', '~> 4.0.0'
+  gem 'sprockets-rails', '~>2.3.2'
   gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
 
   gem 'paperclip', '~> 5.0'

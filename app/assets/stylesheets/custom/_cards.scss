@@ -94,12 +94,12 @@
 
 // CARD STYLES
 .card-red {
-  @include card-variant($brand-danger, $brand-danger);
+  //@include card-variant($brand-danger, $brand-danger);
 }
 
 .card-success {
   .progress {
-    @include progress-variant(darken($brand-success, 12%));
+    //@include progress-variant(darken($brand-success, 12%));
     &[value]::-webkit-progress-bar {
       background-color: lighten($brand-success, 20%);
     }

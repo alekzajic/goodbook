@@ -7,5 +7,5 @@ class Book < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   # Elastic search for Books
-  searchkick
+  # searchkick
 end
