@@ -1,9 +1,9 @@
 /* Set Desktop Masonry Columns */
-@include media-breakpoint-up(sm) {
-  .card-columns {
-    column-count: 2;
-  }
-}
+// @include media-breakpoint-up(sm) {
+//   .card-columns {
+//     column-count: 2;
+//   }
+// }
 
 .card {
   margin-bottom: $grid-gutter-width;
@@ -157,7 +157,7 @@
   .card-tools {
     background: #ddd;
     padding: 5px;
-    @include clearfix
+    // @include clearfix
   }
 }
 

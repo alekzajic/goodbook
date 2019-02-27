@@ -1,4 +1,4 @@
-class AddDetailsToUser < ActiveRecord::Migration[5.0]
+class AddDetailsToUser < ActiveRecord::Migration[5.2]
   def change
     change_table :users do |t|
       t.string :name
